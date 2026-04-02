@@ -201,8 +201,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(11,11,13,0.72)',
     borderRadius: 20,
     padding: 20,
-    borderWidth: 1,
-    borderColor: 'rgba(255,255,255,0.10)',
   },
   errorBox: {
     backgroundColor: 'rgba(193,18,31,0.18)',
