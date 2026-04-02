@@ -29,12 +29,8 @@ export const Input = forwardRef<TextInput, InputProps>(function Input({
 }, ref) {
   const { colors, isDark } = useTheme();
   const [secure, setSecure] = useState(secureTextEntry ?? false);
-  const [focused, setFocused] = useState(false);
 
   const inputBg = isDark ? 'rgba(255,255,255,0.06)' : colors.backgroundSecondary;
-  const borderColor = focused
-    ? isDark ? 'rgba(196,30,58,0.70)' : colors.brand
-    : isDark ? 'rgba(255,255,255,0.10)' : 'transparent';
 
   return (
     <View style={[styles.container, containerStyle]}>
@@ -46,19 +42,15 @@ export const Input = forwardRef<TextInput, InputProps>(function Input({
       <View
         style={[
           styles.inputWrap,
-          {
-            backgroundColor: inputBg,
-            borderColor,
-            borderWidth: 1.5,
-          },
+          { backgroundColor: inputBg },
         ]}
       >
         <TextInput
           {...props}
           ref={ref}
           secureTextEntry={secure}
-          onFocus={(e) => { setFocused(true); props.onFocus?.(e); }}
-          onBlur={(e) => { setFocused(false); props.onBlur?.(e); }}
+          onFocus={props.onFocus}
+          onBlur={props.onBlur}
           placeholderTextColor={isDark ? 'rgba(255,255,255,0.30)' : colors.textTertiary}
           style={[
             styles.input,
@@ -107,7 +99,8 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: 16,
     paddingVertical: 13,
-  },
+    outlineWidth: 0,
+  } as any,
   iconBtn: {
     padding: 4,
     marginLeft: 8,
