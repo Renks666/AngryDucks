@@ -88,7 +88,7 @@ export default function LoginScreen() {
             <View style={[styles.inputRow, emailFocused && styles.inputRowFocused]}>
               <Mail size={18} color="rgba(255,255,255,0.45)" strokeWidth={1.8} />
               <TextInput
-                style={styles.input}
+                style={[styles.input, { outline: 'none' } as any]}
                 value={email}
                 onChangeText={setEmail}
                 placeholder="Email"
@@ -109,7 +109,7 @@ export default function LoginScreen() {
               <Lock size={18} color="rgba(255,255,255,0.45)" strokeWidth={1.8} />
               <TextInput
                 ref={passwordRef}
-                style={styles.input}
+                style={[styles.input, { outline: 'none' } as any]}
                 value={password}
                 onChangeText={setPassword}
                 placeholder="Пароль"

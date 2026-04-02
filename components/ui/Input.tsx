@@ -56,7 +56,7 @@ export const Input = forwardRef<TextInput, InputProps>(function Input({
           placeholderTextColor={isDark ? 'rgba(255,255,255,0.30)' : colors.textTertiary}
           style={[
             styles.input,
-            { color: colors.text },
+            { color: colors.text, outline: 'none' } as any,
             style,
           ]}
         />
