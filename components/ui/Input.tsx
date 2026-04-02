@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, forwardRef } from 'react';
 import {
   View,
   TextInput,
@@ -18,7 +18,7 @@ interface InputProps extends TextInputProps {
   rightIcon?: React.ReactNode;
 }
 
-export function Input({
+export const Input = forwardRef<TextInput, InputProps>(function Input({
   label,
   error,
   containerStyle,
@@ -26,7 +26,7 @@ export function Input({
   secureTextEntry,
   style,
   ...props
-}: InputProps) {
+}, ref) {
   const { colors, isDark } = useTheme();
   const [secure, setSecure] = useState(secureTextEntry ?? false);
   const [focused, setFocused] = useState(false);
@@ -55,6 +55,7 @@ export function Input({
       >
         <TextInput
           {...props}
+          ref={ref}
           secureTextEntry={secure}
           onFocus={(e) => { setFocused(true); props.onFocus?.(e); }}
           onBlur={(e) => { setFocused(false); props.onBlur?.(e); }}
@@ -82,7 +83,7 @@ export function Input({
       )}
     </View>
   );
-}
+});
 
 const styles = StyleSheet.create({
   container: {

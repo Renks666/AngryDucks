@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, ScrollView, StyleSheet } from 'react-native';
+import React, { useState, useEffect, useRef } from 'react';
+import { View, Text, ScrollView, StyleSheet, TextInput } from 'react-native';
 import { Sheet } from '@/components/ui/Sheet';
 import { Input } from '@/components/ui/Input';
 import { Button } from '@/components/ui/Button';
@@ -32,6 +32,11 @@ export function CreateGameSheet({ visible, onClose, onSaved, editGame }: CreateG
   const [priceRub, setPriceRub] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+
+  const timeRef = useRef<TextInput>(null);
+  const locationRef = useRef<TextInput>(null);
+  const priceRef = useRef<TextInput>(null);
+  const descRef = useRef<TextInput>(null);
 
   useEffect(() => {
     if (!visible) return;
@@ -115,28 +120,40 @@ export function CreateGameSheet({ visible, onClose, onSaved, editGame }: CreateG
           onChangeText={setDate}
           autoCapitalize="none"
           keyboardType="numbers-and-punctuation"
+          returnKeyType="next"
+          onSubmitEditing={() => timeRef.current?.focus()}
         />
         <Input
+          ref={timeRef}
           label="Время (ЧЧ:ММ)"
           placeholder="20:00"
           value={time}
           onChangeText={setTime}
           keyboardType="numbers-and-punctuation"
+          returnKeyType="next"
+          onSubmitEditing={() => locationRef.current?.focus()}
         />
         <Input
+          ref={locationRef}
           label="Место"
           placeholder="Стадион Динамо, поле №2"
           value={location}
           onChangeText={setLocation}
+          returnKeyType="next"
+          onSubmitEditing={() => priceRef.current?.focus()}
         />
         <Input
+          ref={priceRef}
           label="Стоимость участия (₽, необязательно)"
           placeholder="1200"
           value={priceRub}
           onChangeText={setPriceRub}
           keyboardType="number-pad"
+          returnKeyType="next"
+          onSubmitEditing={() => descRef.current?.focus()}
         />
         <Input
+          ref={descRef}
           label="Описание (необязательно)"
           placeholder="Дополнительная информация..."
           value={description}
@@ -144,6 +161,8 @@ export function CreateGameSheet({ visible, onClose, onSaved, editGame }: CreateG
           multiline
           numberOfLines={3}
           style={{ minHeight: 80, paddingTop: 12 }}
+          returnKeyType="done"
+          onSubmitEditing={handleSave}
         />
 
         {!!error && (

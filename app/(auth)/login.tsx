@@ -12,7 +12,7 @@ import {
 } from 'react-native';
 import { router } from 'expo-router';
 import Animated, { FadeInDown, FadeInUp } from 'react-native-reanimated';
-import { Mail, Lock } from 'lucide-react-native';
+import { Mail, Lock, Eye, EyeOff } from 'lucide-react-native';
 import { useAuth } from '@/lib/auth';
 import { Button } from '@/components/ui/Button';
 import { ScreenBackground } from '@/components/ui/ScreenBackground';
@@ -26,6 +26,7 @@ export default function LoginScreen() {
   const [error, setError] = useState('');
   const [emailFocused, setEmailFocused] = useState(false);
   const [passFocused, setPassFocused] = useState(false);
+  const [passVisible, setPassVisible] = useState(false);
 
   const passwordRef = useRef<TextInput>(null);
 
@@ -113,12 +114,18 @@ export default function LoginScreen() {
                 onChangeText={setPassword}
                 placeholder="Пароль"
                 placeholderTextColor="rgba(255,255,255,0.35)"
-                secureTextEntry
+                secureTextEntry={!passVisible}
                 returnKeyType="done"
                 onFocus={() => setPassFocused(true)}
                 onBlur={() => setPassFocused(false)}
                 onSubmitEditing={handleLogin}
               />
+              <TouchableOpacity onPress={() => setPassVisible((v) => !v)} style={styles.eyeBtn}>
+                {passVisible
+                  ? <EyeOff size={18} color="rgba(255,255,255,0.45)" strokeWidth={1.8} />
+                  : <Eye size={18} color="rgba(255,255,255,0.45)" strokeWidth={1.8} />
+                }
+              </TouchableOpacity>
             </View>
 
             <Button
@@ -230,6 +237,10 @@ const styles = StyleSheet.create({
     flex: 1,
     color: '#FFFFFF',
     fontSize: 16,
+  },
+  eyeBtn: {
+    padding: 4,
+    marginLeft: 8,
   },
   btn: {
     marginTop: 8,

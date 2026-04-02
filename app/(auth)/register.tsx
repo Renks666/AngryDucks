@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import {
   View,
   Text,
@@ -8,6 +8,7 @@ import {
   KeyboardAvoidingView,
   Platform,
   Image,
+  TextInput,
 } from 'react-native';
 import { router } from 'expo-router';
 import { useAuth } from '@/lib/auth';
@@ -27,6 +28,11 @@ export default function RegisterScreen() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
+
+  const lastNameRef = useRef<TextInput>(null);
+  const emailRef = useRef<TextInput>(null);
+  const passwordRef = useRef<TextInput>(null);
+  const inviteRef = useRef<TextInput>(null);
 
   const handleRegister = async () => {
     if (!firstName.trim()) { setError('Введите имя'); return; }
@@ -114,16 +120,20 @@ export default function RegisterScreen() {
           placeholder="Иван"
           autoCapitalize="words"
           returnKeyType="next"
+          onSubmitEditing={() => lastNameRef.current?.focus()}
         />
         <Input
+          ref={lastNameRef}
           label="Фамилия"
           value={lastName}
           onChangeText={setLastName}
           placeholder="Иванов"
           autoCapitalize="words"
           returnKeyType="next"
+          onSubmitEditing={() => emailRef.current?.focus()}
         />
         <Input
+          ref={emailRef}
           label="Email"
           value={email}
           onChangeText={setEmail}
@@ -132,16 +142,20 @@ export default function RegisterScreen() {
           autoCapitalize="none"
           autoCorrect={false}
           returnKeyType="next"
+          onSubmitEditing={() => passwordRef.current?.focus()}
         />
         <Input
+          ref={passwordRef}
           label="Пароль"
           value={password}
           onChangeText={setPassword}
           placeholder="Минимум 6 символов"
           secureTextEntry
           returnKeyType="next"
+          onSubmitEditing={() => inviteRef.current?.focus()}
         />
         <Input
+          ref={inviteRef}
           label="Инвайт-код (необязательно)"
           value={inviteCode}
           onChangeText={(t) => setInviteCode(t.toUpperCase())}
