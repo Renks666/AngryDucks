@@ -29,8 +29,10 @@ export const Input = forwardRef<TextInput, InputProps>(function Input({
 }, ref) {
   const { colors, isDark } = useTheme();
   const [secure, setSecure] = useState(secureTextEntry ?? false);
+  const [focused, setFocused] = useState(false);
 
   const inputBg = isDark ? 'rgba(255,255,255,0.06)' : colors.backgroundSecondary;
+  const borderColor = focused ? (isDark ? 'rgba(196,30,58,0.70)' : colors.brand) : 'transparent';
 
   return (
     <View style={[styles.container, containerStyle]}>
@@ -42,15 +44,15 @@ export const Input = forwardRef<TextInput, InputProps>(function Input({
       <View
         style={[
           styles.inputWrap,
-          { backgroundColor: inputBg },
+          { backgroundColor: inputBg, borderColor, borderWidth: 1.5 },
         ]}
       >
         <TextInput
           {...props}
           ref={ref}
           secureTextEntry={secure}
-          onFocus={props.onFocus}
-          onBlur={props.onBlur}
+          onFocus={(e) => { setFocused(true); props.onFocus?.(e); }}
+          onBlur={(e) => { setFocused(false); props.onBlur?.(e); }}
           placeholderTextColor={isDark ? 'rgba(255,255,255,0.30)' : colors.textTertiary}
           style={[
             styles.input,

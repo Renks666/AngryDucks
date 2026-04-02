@@ -220,12 +220,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: 'rgba(255,255,255,0.07)',
     borderRadius: 14,
+    borderWidth: 1.5,
+    borderColor: 'transparent',
     paddingHorizontal: 14,
     paddingVertical: 14,
     marginBottom: 12,
     gap: 10,
   },
   inputRowFocused: {
+    borderColor: 'rgba(193,18,31,0.7)',
     backgroundColor: 'rgba(255,255,255,0.09)',
   },
   input: {
