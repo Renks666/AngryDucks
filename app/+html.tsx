@@ -66,6 +66,11 @@ export default function Root({ children }: PropsWithChildren) {
 
           /* Hide scrollbar on webkit */
           ::-webkit-scrollbar { display: none; }
+
+          /* Remove browser focus outline on all inputs */
+          input:focus, input:focus-visible, textarea:focus, textarea:focus-visible {
+            outline: none !important;
+          }
         `}} />
       </head>
       <body>{children}</body>
