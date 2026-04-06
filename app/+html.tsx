@@ -16,6 +16,10 @@ export default function Root({ children }: PropsWithChildren) {
         <meta name="theme-color" content="#1A1A1A" />
         <meta name="mobile-web-app-capable" content="yes" />
 
+        {/* PWA Manifest */}
+        <link rel="manifest" href="/manifest.json" />
+        <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
+
         {/* SEO */}
         <meta name="description" content="Duck Team — приложение ФК Утиное Яблоко" />
 
